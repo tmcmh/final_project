@@ -24,8 +24,8 @@
 
 
             <% @candidates.each do | candidate | %>
-            <%= radio_button(:vote, "vote.candidate_id", candidate.id) %>
-            <%= vote.label "vote.candidate_id", candidate.name %>
+            <%= radio_button(@voter, "voter[vote_attributes][candidate_id]", candidate.id) %>
+            <%= vote.label "voter[vote_attributes][candidate_id]", candidate.name %>
             <br>
             <% end %>
         
