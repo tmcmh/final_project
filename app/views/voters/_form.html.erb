@@ -16,19 +16,20 @@
     <%= f.text_field :name %>
   </div>
 
-      <h2>Here comes the voting section</h2>
+    <h2>Here comes the voting section</h2>
 
     <div class="field">
 
-      <%= f.fields_for :vote do |vote| %>
+      
+        <%= f.fields_for :vote do |vote| %>
 
-
-            <% @candidates.each do | candidate | %>
-            <%= radio_button(@voter, "voter[vote_attributes][candidate_id]", candidate.id) %>
-            <%= vote.label "voter[vote_attributes][candidate_id]", candidate.name %>
+        <% @candidates.each do | candidate | %>
+            
+            <%= vote.radio_button :candidate_id , candidate.id %>
+            <%= vote.label :candidate_id, candidate.name %>
             <br>
+            
             <% end %>
-        
 
         <% end %>
 

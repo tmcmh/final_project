@@ -21,3 +21,28 @@
 <br />
 
 <%= link_to 'New Voter', new_voter_path %>
+
+<br />
+
+
+<table>
+
+  <% totalvotes = @votes.count %>
+
+<% @candidates.each do |candidate| %>
+  <% votecount = @votes.count {|vote| vote.candidate_id == candidate.id } %> 
+
+  <tr>
+    <td><%= candidate.name %></td>
+    <td><%= votecount %> votes</td>
+    <td><%= 100 * votecount/totalvotes %> percent</td>
+ </tr>
+
+<% end %>
+
+</table>
+
+<p>
+  The winning candidate is <%= @winner %>
+
+</p>

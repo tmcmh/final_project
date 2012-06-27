@@ -4,6 +4,11 @@ class VotersController < ApplicationController
   def index
     @voters = Voter.all
 
+    @votes = Vote.all
+    @candidates = Candidate.all
+
+    @winner = Candidate.find(Vote.all.group_by {|vote| vote.candidate_id}.keys.first).name
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @voters }

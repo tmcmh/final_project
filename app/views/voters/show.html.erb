@@ -7,11 +7,15 @@
 
 <p>
 
-	<b>Vote</b>
+	<b>Vote</b><br>
 
-	<%=	@voter.vote.candidate_id %><br>
+	<table>
+		<tr><td>Candidate #</td><td><%=	@voter.vote.candidate_id %></td></tr>
 
-	<%=	@voter.vote.candidate.name %><br>
+		<tr><td>Candidate Name</td><td><%=	@voter.vote.candidate.name %></td></tr>
+
+		<tr><td>Vote time</td><td><%= @voter.vote.updated_at.asctime %></td></tr>
+	</table>
 
 </p>
 
