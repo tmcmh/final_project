@@ -37,6 +37,8 @@
 
   <% totalvotes = @votes.count %>
 
+<% if totalvotes > 0 %>
+
 <% @candidates.each do |candidate| %>
   <% votecount = @votes.count {|vote| vote.candidate_id == candidate.id } %> 
 
@@ -50,7 +52,9 @@
 
 </table>
 
-<p>The winning candidate is <%= @winner %></p>
+<% end %>  <!-- end of the if test for whether votes have been cast -->
+
+<p><%= @winner %></p>
 
 <br>
 
