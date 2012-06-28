@@ -1,4 +1,6 @@
-<h1>Listing voters</h1>
+<%= link_to 'Vote now', vote_now_path %>
+
+<h2>The voter roll</h2>
 
 <table>
   <tr>
@@ -10,7 +12,7 @@
 
 <% @voters.each do |voter| %>
   <tr>
-    <td><%= voter.name %></td>
+    <td><%= voter.email %></td>
     <td><%= link_to 'Show', voter %></td>
     <td><%= link_to 'Edit', edit_voter_path(voter) %></td>
     <td><%= link_to 'Destroy', voter, confirm: 'Are you sure?', method: :delete %></td>
@@ -20,9 +22,7 @@
 
 <br />
 
-<%= link_to 'New Voter', new_voter_path %>
-
-<br />
+<h2>The Results</h2>
 
 
 <table>
@@ -42,7 +42,10 @@
 
 </table>
 
-<p>
-  The winning candidate is <%= @winner %>
+<p>The winning candidate is <%= @winner %></p>
 
-</p>
+<%= link_to 'New Voter', new_voter_path %>
+
+<br>
+
+<%= link_to 'Add a candidate', new_candidate_path %>

@@ -1,0 +1,39 @@
+<%= form_for(@voter) do |f| %>
+  <% if @voter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@voter.errors.count, "error") %> prohibited this voter from being saved:</h2>
+
+      <ul>
+      <% @voter.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+    <h2>Please select your candidate</h2>
+
+    <div class="field">
+
+      
+        <%= f.fields_for :vote do |vote| %>
+
+        <% @candidates.each do | candidate | %>
+            
+            <%= vote.radio_button :candidate_id , candidate.id %>
+            <%= vote.label :candidate_id, candidate.name %>
+            <br>
+            
+            <% end %>
+
+        <% end %>
+
+    </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

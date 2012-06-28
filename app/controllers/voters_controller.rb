@@ -1,13 +1,40 @@
 class VotersController < ApplicationController
   # GET /voters
   # GET /voters.json
+
+
+before_filter :authenticate_voter!, :except => "index"
+
+
+  def vote_now
+
+    @voter = current_voter
+
+    @voter.build_vote # this is to let the form assign a vote
+
+    @candidates = Candidate.all
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @voter }
+    end
+
+
+  end
+
   def index
     @voters = Voter.all
 
     @votes = Vote.all
     @candidates = Candidate.all
 
-    @winner = Candidate.find(Vote.all.group_by {|vote| vote.candidate_id}.keys.first).name
+    # the following finds the winning candidate
+
+    votecount = Vote.all.map {|vote| vote.candidate_id}
+    freq = votecount.inject(Hash.new(0)) { |h,v| h[v] += 1; h}
+    @winner = Candidate.find(votecount.sort_by { |v| freq[v]}.last).name
+
+    # I don't know how it works
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,6 +56,7 @@ class VotersController < ApplicationController
   # GET /voters/new
   # GET /voters/new.json
   def new
+
     @voter = Voter.new
 
     @voter.build_vote # this is to let the form assign a vote

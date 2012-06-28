@@ -1,10 +1,18 @@
 Voterize::Application.routes.draw do
+  devise_for :voters
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   resources :voters
+  resources :candidates
 
   root :to => "voters#index"
+
+  match 'vote_now' => 'voters#vote_now'
+  
+
+
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

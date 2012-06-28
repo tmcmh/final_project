@@ -8,6 +8,15 @@
 </head>
 <body>
 
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
+	<% if current_voter.nil? %>
+	<p class="notice">You are not signed in. <%= link_to "Sign in." , voter_session_path%></p>
+	<% else %>
+ 	<p class="notice">You are signed in as: <%= current_voter.email %></p>
+ 	<%= link_to "Sign out", destroy_voter_session_path, :method => :delete %>
+ 	<% end %>
+
 <%= yield %>
 
 </body>
