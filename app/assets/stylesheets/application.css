@@ -11,3 +11,10 @@
  *= require_self
  *= require_tree .
 */
+
+p.helper {
+	margin-left: 50px;
+	margin-right: 50px;
+	font-style: italic;
+	}
+

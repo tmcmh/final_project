@@ -29,12 +29,19 @@ before_filter :authenticate_voter!, :except => "index"
     @candidates = Candidate.all
 
     # the following finds the winning candidate
+    # First, reduce the votes to an array of candidate_ids
 
     votecount = Vote.all.map {|vote| vote.candidate_id}
-    freq = votecount.inject(Hash.new(0)) { |h,v| h[v] += 1; h}
-    @winner = Candidate.find(votecount.sort_by { |v| freq[v]}.last).name
 
-    # I don't know how it works
+    # Now, do something with inject that creates a hash, one key per candidate,
+    #   and the value is the count of occurrences of that candidate_id
+
+    freq = votecount.inject(Hash.new(0)) { |h,v| h[v] += 1; h}
+    
+    # Now, sort by the frequency matched by that key, and use the result
+    # (the highest-ferquency candidate_id) to 'find' the name of the candidate
+
+    @winner = Candidate.find(votecount.sort_by { |v| freq[v]}.last).name
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,19 +62,20 @@ before_filter :authenticate_voter!, :except => "index"
 
   # GET /voters/new
   # GET /voters/new.json
-  def new
+  
+  # def new
 
-    @voter = Voter.new
+  #   @voter = Voter.new
 
-    @voter.build_vote # this is to let the form assign a vote
+  #   @voter.build_vote # this is to let the form assign a vote
 
-    @candidates = Candidate.all
+  #   @candidates = Candidate.all
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @voter }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # new.html.erb
+  #     format.json { render json: @voter }
+  #   end
+  # end
 
   # GET /voters/1/edit
   def edit

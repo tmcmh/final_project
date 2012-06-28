@@ -1,24 +1,32 @@
+<link rel = "stylesheet" type = "text/css" href = "../../assets/stylesheets/application.css">
+
 <%= link_to 'Vote now', vote_now_path %>
 
 <h2>The voter roll</h2>
+<p class = "helper">I added this section because it helped me remember what usernames I had registered. If you are logged in, a link to vote, or to see your vote if you've voted already, appears next to your name.</p>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<% if current_voter.nil? %>
+<% logged_in_id = 0 %>
+<% else logged_in_id = current_voter.id %>
+<% end %>
 
 <% @voters.each do |voter| %>
-  <tr>
-    <td><%= voter.email %></td>
-    <td><%= link_to 'Show', voter %></td>
-    <td><%= link_to 'Edit', edit_voter_path(voter) %></td>
-    <td><%= link_to 'Destroy', voter, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  
+    <%= voter.email %>
+
+    <% if voter.id == logged_in_id %>
+
+      <% if voter.vote.nil? %>
+      <%= link_to 'Vote now', vote_now_path %><br />
+      <% else %>
+
+        <%= link_to 'See how you voted', voter %><br />
+      <% end %>
+      <% else %> <br>
+    <% end %>
+
 <% end %>
-</table>
+
 
 <br />
 
@@ -43,8 +51,6 @@
 </table>
 
 <p>The winning candidate is <%= @winner %></p>
-
-<%= link_to 'New Voter', new_voter_path %>
 
 <br>
 

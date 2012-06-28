@@ -92,7 +92,9 @@ private
   def check_admin
     if current_voter.administrator == true
       @message = "You can manage candidates"
+      @cleared_to_create = true
     else
       @message = "You are not allowed to manage candidates"
+      @cleared_to_create = false
     end
   end

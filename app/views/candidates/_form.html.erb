@@ -13,11 +13,16 @@
 
   <%= @message %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% if @cleared_to_create == true %>
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+<% end %>
+
 <% end %>
